@@ -1,0 +1,3 @@
+/Users/dalisozuze/Developer/udacity-sdcnd-term2/CarND-Kidnapped-Vehicle-Project/ide_profiles/xcode/CMakeFiles/particle_filter.dir
+/Users/dalisozuze/Developer/udacity-sdcnd-term2/CarND-Kidnapped-Vehicle-Project/ide_profiles/xcode/CMakeFiles/ALL_BUILD.dir
+/Users/dalisozuze/Developer/udacity-sdcnd-term2/CarND-Kidnapped-Vehicle-Project/ide_profiles/xcode/CMakeFiles/ZERO_CHECK.dir
