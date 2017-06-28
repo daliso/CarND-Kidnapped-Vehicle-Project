@@ -6,3 +6,6 @@ solution_data
 src/particle_filter_sol.cpp
 src/solutions
 particle_filter.cpp
+src/particle_filter.cpp.zip
+
+ide_profiles/xcode/PARTICLE_FILTER.xcodeproj/project.xcworkspace/xcuserdata/dalisozuze.xcuserdatad/UserInterfaceState.xcuserstate
