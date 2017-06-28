@@ -113,6 +113,23 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     
     for(int p=0; p<num_particles ; p++){
         
+        vector<int> landmarks_in_range;
+
+
+        for(int i=0;i<map_landmarks.landmark_list.size();i++){
+
+            double lm_distance = dist(particles[p].x, particles[p].y,map_landmarks.landmark_list[i].x_f,map_landmarks.landmark_list[i].y_f);
+            
+            if(lm_distance <= sensor_range){
+                landmarks_in_range.push_back(i);
+            }
+        }
+
+        if (landmarks_in_range.size() == 0){
+            cout << "No landmarks in range" << endl;
+        }
+        
+        
         long double total_weight = 1.0;
         
         for(int i = 0; i < observations.size(); i++){
@@ -121,15 +138,17 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
             trans_obs.x = particles[p].x + (observations[i].x*cos(particles[p].theta) - observations[i].y*sin(particles[p].theta));
             trans_obs.y = particles[p].y + (observations[i].x*sin(particles[p].theta) + observations[i].y*cos(particles[p].theta));
             
-            int best_landmark = 0;
+            int best_landmark = landmarks_in_range[0];
             double best_distance = dist(trans_obs.x,trans_obs.y,map_landmarks.landmark_list[best_landmark].x_f,map_landmarks.landmark_list[best_landmark].y_f);
                 
-            for( int l = 1 ; l < map_landmarks.landmark_list.size() ; l++){
+            for( int l = 1 ; l < landmarks_in_range.size() ; l++){
+                
+                int lm = landmarks_in_range[l];
                     
-                double this_distance = dist(trans_obs.x,trans_obs.y,map_landmarks.landmark_list[l].x_f,map_landmarks.landmark_list[l].y_f);
+                double this_distance = dist(trans_obs.x,trans_obs.y,map_landmarks.landmark_list[lm].x_f,map_landmarks.landmark_list[lm].y_f);
                 
                 if(this_distance < best_distance){
-                    best_landmark = l;
+                    best_landmark = lm;
                     best_distance = this_distance;
                 }
                     
@@ -164,7 +183,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
     
     
 }
- 
+
 
 void ParticleFilter::resample() {
     // TODO: Resample particles with replacement with probability proportional to their weight.
